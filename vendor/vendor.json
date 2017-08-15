@@ -1,0 +1,85 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "6G09sYG6l08dtuCtY5m0k+gSXe4=",
+			"path": "github.com/buger/goterm",
+			"revision": "2f8dfbc7dbbff5dd1d391ed91482c24df243b2d3",
+			"revisionTime": "2017-08-07T14:32:30Z"
+		},
+		{
+			"checksumSHA1": "vF6ZgVpo58P97FM3Up+SdEk6IPY=",
+			"path": "github.com/go-resty/resty",
+			"revision": "6d8c785a63e4b7505c88451cf9c5b452ccf2454c",
+			"revisionTime": "2017-07-19T18:37:46Z"
+		},
+		{
+			"checksumSHA1": "g/Z/Ka0VgJESgQK7/SJCjm/aX0I=",
+			"path": "golang.org/x/net/idna",
+			"revision": "1c05540f6879653db88113bc4a2b70aec4bd491f",
+			"revisionTime": "2017-08-04T00:04:37Z"
+		},
+		{
+			"checksumSHA1": "txD8w9+dmFn4uG8BbqdZwXawT6E=",
+			"path": "golang.org/x/net/publicsuffix",
+			"revision": "1c05540f6879653db88113bc4a2b70aec4bd491f",
+			"revisionTime": "2017-08-04T00:04:37Z"
+		},
+		{
+			"checksumSHA1": "ZQdHbB9VYCXwQ+9/CmZPhJv0+SM=",
+			"path": "golang.org/x/text/internal/gen",
+			"revision": "b19bf474d317b857955b12035d2c5acb57ce8b01",
+			"revisionTime": "2017-07-06T13:46:35Z"
+		},
+		{
+			"checksumSHA1": "47nwiUyVBY2RKoEGXmCSvusY4Js=",
+			"path": "golang.org/x/text/internal/triegen",
+			"revision": "b19bf474d317b857955b12035d2c5acb57ce8b01",
+			"revisionTime": "2017-07-06T13:46:35Z"
+		},
+		{
+			"checksumSHA1": "Yd5wMObzagIfCiKLpZbtBIrOUA4=",
+			"path": "golang.org/x/text/internal/ucd",
+			"revision": "b19bf474d317b857955b12035d2c5acb57ce8b01",
+			"revisionTime": "2017-07-06T13:46:35Z"
+		},
+		{
+			"checksumSHA1": "faFDXp++cLjLBlvsr+izZ+go1WU=",
+			"path": "golang.org/x/text/secure/bidirule",
+			"revision": "b19bf474d317b857955b12035d2c5acb57ce8b01",
+			"revisionTime": "2017-07-06T13:46:35Z"
+		},
+		{
+			"checksumSHA1": "ziMb9+ANGRJSSIuxYdRbA+cDRBQ=",
+			"path": "golang.org/x/text/transform",
+			"revision": "b19bf474d317b857955b12035d2c5acb57ce8b01",
+			"revisionTime": "2017-07-06T13:46:35Z"
+		},
+		{
+			"checksumSHA1": "KG+XZAbxdkpBm3Fa3bJ3Ylq8CKI=",
+			"path": "golang.org/x/text/unicode/bidi",
+			"revision": "b19bf474d317b857955b12035d2c5acb57ce8b01",
+			"revisionTime": "2017-07-06T13:46:35Z"
+		},
+		{
+			"checksumSHA1": "u67CNB7snnIRQfOV+pE1mwCDkNc=",
+			"path": "golang.org/x/text/unicode/cldr",
+			"revision": "b19bf474d317b857955b12035d2c5acb57ce8b01",
+			"revisionTime": "2017-07-06T13:46:35Z"
+		},
+		{
+			"checksumSHA1": "Anof4bt0AU+Sa3R8Rq0KBnlpbaQ=",
+			"path": "golang.org/x/text/unicode/norm",
+			"revision": "b19bf474d317b857955b12035d2c5acb57ce8b01",
+			"revisionTime": "2017-07-06T13:46:35Z"
+		},
+		{
+			"checksumSHA1": "5R2IZ5umPfkD5QKt3pwrbIgmrDk=",
+			"path": "golang.org/x/text/unicode/rangetable",
+			"revision": "b19bf474d317b857955b12035d2c5acb57ce8b01",
+			"revisionTime": "2017-07-06T13:46:35Z"
+		}
+	],
+	"rootPath": "github.com/backedrum/searchnow"
+}
