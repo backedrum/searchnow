@@ -7,6 +7,9 @@
 ### Use searchnow:
 > searchnow <search_term> <search_engine> <max_results>
 
+### config.json
+*config.json* should be placed into the app directory. Use it to include/exclude particular fields from result.
+
 ### Supported engines:
 - Google. Make sure you comply with https://console.developers.google.com/tos?id=universal
   

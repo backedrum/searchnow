@@ -12,6 +12,7 @@ type SearchResult struct {
 	Url      string
 	Title    string
 	Contents string
+	Other  map[string]string
 }
 
 type searchFn func(searchTerm string, numOfResults int) []*SearchResult

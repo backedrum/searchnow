@@ -1,12 +1,22 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/backedrum/searchnow/handlers"
 	tm "github.com/buger/goterm"
+	"html"
+	"io/ioutil"
 	"os"
 	"strconv"
 )
+
+type Config struct {
+	ShowTitle    bool `json:"title"`
+	ShowURL      bool `json:"url"`
+	ShowContents bool `json:"contents"`
+	ShowOthers   bool `json:"others"`
+}
 
 func main() {
 	if len(os.Args) < 2 || len(os.Args) > 4 {
@@ -31,18 +41,51 @@ func main() {
 		os.Exit(1)
 	}
 
+	// init config
+	bytes, err := ioutil.ReadFile("config.json")
+	if err != nil {
+		fmt.Printf("Cannot read application config. Error:%s", err.Error())
+		os.Exit(1)
+	}
+
+	config := Config{}
+	err = json.Unmarshal(bytes, &config)
+	if err != nil {
+		fmt.Printf("Cannot init application config. Error:%s", err.Error())
+		os.Exit(1)
+	}
+
 	results := handlers.Search(engine, searchTerm, numOfResults)
 
-	tm.Clear()
-	resultTable := tm.NewTable(0, 20, 5, ' ', 0)
-	fmt.Fprintf(resultTable, "Url\tTitle\n")
-
 	for _, result := range results {
-		fmt.Fprintf(resultTable, "%s\t%s\n", result.Url, result.Title)
+		for i := 0; i < tm.Width(); i++ {
+			fmt.Print(tm.Color("_", tm.CYAN))
+		}
+		fmt.Print("\n")
+
+		putLine("URL:", result.Url, tm.RED, tm.BLUE, config.ShowURL)
+		putLine("Title:", result.Title, tm.RED, -1, config.ShowTitle)
+		putLine("Snippet:", result.Contents, tm.RED, tm.GREEN, config.ShowContents)
 	}
-	tm.Println(resultTable)
 
 	tm.Flush()
 
 	return
+}
+
+func putLine(name, value string, nameColor, valueColor int, allowed bool) {
+	if allowed {
+		if nameColor > -1 {
+			fmt.Print(tm.Color(name, nameColor) + "\t")
+		} else {
+			fmt.Print(name + "\t")
+		}
+
+		unescapedValue := html.UnescapeString(value)
+		if valueColor > -1 {
+			fmt.Print(tm.Color(unescapedValue, valueColor) + "\n")
+		} else {
+			fmt.Print(unescapedValue + "\n")
+		}
+	}
 }
