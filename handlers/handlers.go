@@ -20,6 +20,7 @@ var tokens = make(map[string]string)
 
 var engines = map[string]searchFn{
 	"google": searchViaGoogleApi,
+	"so":     searchStackOverflow,
 }
 
 func HasEngineSupport(engine string) bool {

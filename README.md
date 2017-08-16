@@ -1,5 +1,5 @@
 ##searchnow command line search tool
-Search now allows you to perform a quick web search directly from the command line. 
+*Searchnow* allows you to perform a quick web search or get instant info directly from the command line. 
 
 ###Make
 > make
@@ -20,15 +20,18 @@ Search now allows you to perform a quick web search directly from the command li
   google.apikey=<your_api_key_associated_with_custom_search_api>
   google.engine=<search_engine_id>
   ````
-  
+  Command line value: google.
+- StackOverflow. Performs search for the questions from stackoverflow.com via [Stack-on-Go](https://github.com/laktek/Stack-on-Go).
+  Command line value: so.  
 - Other engines to be added soon.
 
 ###Command line arguments:
 - *search_engine* (optional)   Search engine, "google" is default one.
 - *max_resuts* (optional)      Limit a number of results. Default value is 5.  
 
-###Sample:
+###Samples:
 > searchnow "go: unknown subcommand" google 10
+> searchnow "factorial" so 9
 
 ###License:
 > Apache 2.0
