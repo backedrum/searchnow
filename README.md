@@ -1,5 +1,5 @@
 ## searchnow command line search tool
-*Searchnow* allows you to perform a quick web search or get instant info directly from the command line. 
+*Searchnow* allows you to perform a quick web search or get instant info from various APIs directly from the command line. 
 
 ### Make
 > make
@@ -25,10 +25,14 @@
   ````
   Command line value: google.
 - StackOverflow. Performs search for the questions from stackoverflow.com via [Stack-on-Go](https://github.com/laktek/Stack-on-Go).
-  Command line value: so.  
+  Command line value: so.
+- Hacker News. Allows fetching of the stories from [Hacker News](news.ycombinator.com) via [Hacker News Api](https://github.com/HackerNews/API).
+  Supported terms: *newstories, topstories, beststories, askstories, jobstories*.
+  Command line value: hn.    
 - Other engines to be added soon.
 
 ### Command line arguments:
+- *search_term* (required)     Term to search for search engines or action/expression for other engines.
 - *search_engine* (optional)   Search engine, "google" is default one.
 - *max_resuts* (optional)      Limit a number of results. Default value is 5.  
 

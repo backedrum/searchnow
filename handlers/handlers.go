@@ -12,7 +12,7 @@ type SearchResult struct {
 	Url      string
 	Title    string
 	Contents string
-	Other  map[string]string
+	Other    map[string]string
 }
 
 type searchFn func(searchTerm string, numOfResults int) []*SearchResult
@@ -22,6 +22,7 @@ var tokens = make(map[string]string)
 var engines = map[string]searchFn{
 	"google": searchViaGoogleApi,
 	"so":     searchStackOverflow,
+	"hn":     fetchHackerNews,
 }
 
 func HasEngineSupport(engine string) bool {
