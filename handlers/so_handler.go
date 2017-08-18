@@ -38,22 +38,24 @@ func searchStackOverflow(searchTerm string, numOfResults int) []*SearchResult {
 			sr.ExtrasOrder = make([]string, 0, MAX_ANSWERS)
 
 			// sort answers by score
+			params := make(stackongo.Params)
+			params.Add("filter", "withbody")
 			params.Sort("votes")
 
 			// is answered?
 			answersCount := 0
-			if question.Is_answered {
+			if question.Is_answered && question.Accepted_answer_id > 0 {
 				answer, err := session.GetAnswers([]int{question.Accepted_answer_id}, params)
 				if err != nil {
 					fmt.Printf("Cannot retrieve a correct answer:%s", err.Error())
+				} else {
+					vote := "(vote:" + strconv.Itoa(answer.Items[0].Score) + ") "
+					extra := "Answer 1(\u2713):"
+					sr.Extras[extra] = vote + answer.Items[0].Body
+					sr.ExtrasOrder = append(sr.ExtrasOrder, extra)
+
+					answersCount++
 				}
-
-				vote := "(vote:" + strconv.Itoa(answer.Items[0].Score) + ") "
-				extra := "Answer 1(\u2713):"
-				sr.Extras[extra] = vote + answer.Items[0].Body
-				sr.ExtrasOrder = append(sr.ExtrasOrder, extra)
-
-				answersCount++
 			}
 
 			answers, _ := session.AnswersForQuestions([]int{question.Question_id}, params)
