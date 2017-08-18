@@ -16,9 +16,7 @@ type googleResultItem struct {
 	Snippet string `json:"snippet"`
 }
 
-/*
-  Performs search via Google Custom Search API.
-*/
+// searchViaGoogleApi performs search via Google Custom Search API.
 func searchViaGoogleApi(searchTerm string, numOfResults int) []*SearchResult {
 	result := make([]*SearchResult, 0, numOfResults)
 

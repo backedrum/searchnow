@@ -22,9 +22,7 @@ type storyContent struct {
 	Text  string `json:"text"`
 }
 
-/*
-Fetches Hacker News stories data accordingly to the specified term.
- */
+//fetchHackerNews fetches Hacker News stories data accordingly to the specified term.
 func fetchHackerNews(term string, numOfResults int) []*SearchResult {
 
 	if numOfResults > MAX_RESULTS {

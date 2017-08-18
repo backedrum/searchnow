@@ -3,18 +3,22 @@ package handlers
 import (
 	"fmt"
 	"github.com/laktek/Stack-on-Go/stackongo"
+	"strconv"
 )
 
-/*
-  Performs StackOverflow.com search via Stack-On-Go library.
-*/
+const MAX_ANSWERS = 4
+
+//searchStackOverflow performs StackOverflow.com search via Stack-On-Go library.
 func searchStackOverflow(searchTerm string, numOfResults int) []*SearchResult {
 	result := make([]*SearchResult, 0, numOfResults)
 
+	params := make(stackongo.Params)
+	params.Add("filter", "withbody")
+
 	session := stackongo.NewSession("stackoverflow")
-	questions, err := session.Search(searchTerm, stackongo.Params{})
+	questions, err := session.Search(searchTerm, params)
 	if err != nil {
-		fmt.Printf(err.Error())
+		fmt.Printf("Error while retrieving questions:%s\n", err.Error())
 		return result
 	}
 
@@ -26,6 +30,44 @@ func searchStackOverflow(searchTerm string, numOfResults int) []*SearchResult {
 		sr := SearchResult{}
 		sr.Url = question.Link
 		sr.Title = question.Title
+		sr.Contents = question.Body
+
+		if question.Answer_count > 0 {
+
+			sr.Other = make(map[string]string)
+
+			// sort answers by score
+			params.Sort("votes")
+
+			// is answered?
+			answersCount := 0
+			if question.Is_answered {
+				answer, err := session.GetAnswers([]int{question.Accepted_answer_id}, params)
+				if err != nil {
+					fmt.Printf("Cannot retrieve a correct answer:%s", err.Error())
+				}
+
+				vote := "(vote:" + strconv.Itoa(answer.Items[0].Score) + ") "
+				sr.Other["Answer 1(\u2713):"] = vote + answer.Items[0].Body
+				answersCount++
+			}
+
+			answers, _ := session.AnswersForQuestions([]int{question.Question_id}, params)
+			for _, answer := range answers.Items {
+				if answersCount > MAX_ANSWERS {
+					break
+				}
+
+				if answer.Is_accepted {
+					continue
+				}
+
+				vote := "(vote:" + strconv.Itoa(answer.Score) + ") "
+				sr.Other["Answer "+strconv.Itoa(answersCount+1)+":"] = vote + answer.Body
+				answersCount++
+			}
+		}
+
 		result = append(result, &sr)
 	}
 
