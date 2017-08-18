@@ -67,9 +67,9 @@ func main() {
 		putLine("Title:", result.Title, tm.RED, -1, config.ShowTitle)
 		putLine("Snippet:", result.Contents, tm.RED, tm.GREEN, config.ShowContents)
 
-		if config.ShowContents && len(result.Other) > 0 {
-			for k, v := range result.Other {
-				putLine(k, v, tm.RED, tm.YELLOW, true)
+		if config.ShowContents && len(result.Extras) > 0 {
+			for _, extra := range result.ExtrasOrder {
+				putLine(extra, result.Extras[extra], tm.RED, tm.YELLOW, true)
 			}
 		}
 	}

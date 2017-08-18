@@ -8,11 +8,12 @@ import (
 )
 
 type SearchResult struct {
-	Source   string
-	Url      string
-	Title    string
-	Contents string
-	Other    map[string]string
+	Source      string
+	Url         string
+	Title       string
+	Contents    string
+	Extras      map[string]string
+	ExtrasOrder []string
 }
 
 type searchFn func(searchTerm string, numOfResults int) []*SearchResult

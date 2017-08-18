@@ -34,7 +34,8 @@ func searchStackOverflow(searchTerm string, numOfResults int) []*SearchResult {
 
 		if question.Answer_count > 0 {
 
-			sr.Other = make(map[string]string)
+			sr.Extras = make(map[string]string)
+			sr.ExtrasOrder = make([]string, 0, MAX_ANSWERS)
 
 			// sort answers by score
 			params.Sort("votes")
@@ -48,7 +49,10 @@ func searchStackOverflow(searchTerm string, numOfResults int) []*SearchResult {
 				}
 
 				vote := "(vote:" + strconv.Itoa(answer.Items[0].Score) + ") "
-				sr.Other["Answer 1(\u2713):"] = vote + answer.Items[0].Body
+				extra := "Answer 1(\u2713):"
+				sr.Extras[extra] = vote + answer.Items[0].Body
+				sr.ExtrasOrder = append(sr.ExtrasOrder, extra)
+
 				answersCount++
 			}
 
@@ -63,7 +67,10 @@ func searchStackOverflow(searchTerm string, numOfResults int) []*SearchResult {
 				}
 
 				vote := "(vote:" + strconv.Itoa(answer.Score) + ") "
-				sr.Other["Answer "+strconv.Itoa(answersCount+1)+":"] = vote + answer.Body
+				extra := "Answer " + strconv.Itoa(answersCount+1) + ":"
+				sr.Extras["Answer "+strconv.Itoa(answersCount+1)+":"] = vote + answer.Body
+				sr.ExtrasOrder = append(sr.ExtrasOrder, extra)
+
 				answersCount++
 			}
 		}
