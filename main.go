@@ -3,9 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/backedrum/searchnow/display"
 	"github.com/backedrum/searchnow/handlers"
 	tm "github.com/buger/goterm"
-	"html"
 	"io/ioutil"
 	"os"
 	"strconv"
@@ -63,13 +63,14 @@ func main() {
 		}
 		fmt.Print("\n")
 
-		putLine("URL:", result.Url, tm.RED, tm.BLUE, config.ShowURL)
-		putLine("Title:", result.Title, tm.RED, -1, config.ShowTitle)
-		putLine("Snippet:", result.Contents, tm.RED, tm.GREEN, config.ShowContents)
+		display.PutLine("URL:", result.Url, tm.RED, tm.BLUE, config.ShowURL)
+		display.PutLine("Title:", result.Title, tm.RED, -1, config.ShowTitle)
+
+		display.PutLine("Snippet:", display.ConvertHtmlToText(result.Contents), tm.RED, tm.GREEN, config.ShowContents)
 
 		if config.ShowContents && len(result.Extras) > 0 {
 			for _, extra := range result.ExtrasOrder {
-				putLine(extra, result.Extras[extra], tm.RED, tm.YELLOW, true)
+				display.PutLine(extra, display.ConvertHtmlToText(result.Extras[extra]), tm.RED, tm.YELLOW, true)
 			}
 		}
 	}
@@ -77,21 +78,4 @@ func main() {
 	tm.Flush()
 
 	return
-}
-
-func putLine(name, value string, nameColor, valueColor int, allowed bool) {
-	if allowed {
-		if nameColor > -1 {
-			fmt.Print(tm.Color(name, nameColor) + "\t")
-		} else {
-			fmt.Print(name + "\t")
-		}
-
-		unescapedValue := html.UnescapeString(value)
-		if valueColor > -1 {
-			fmt.Print(tm.Color(unescapedValue, valueColor) + "\n")
-		} else {
-			fmt.Print(unescapedValue + "\n")
-		}
-	}
 }
