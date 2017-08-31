@@ -63,12 +63,11 @@ func main() {
 		}
 		fmt.Print("\n")
 
-		display.PutLine("URL:", result.Url, tm.RED, tm.BLUE, config.ShowURL)
-		display.PutLine("Title:", result.Title, tm.RED, -1, config.ShowTitle)
+		display.PutLine("URL:", result.Url, tm.RED, tm.BLUE, config.ShowURL && result.Url != "")
+		display.PutLine("Title:", result.Title, tm.RED, -1, config.ShowTitle && result.Title != "")
+		display.PutLine("Snippet:", display.ConvertHtmlToText(result.Contents), tm.RED, tm.GREEN, config.ShowContents && result.Contents != "")
 
-		display.PutLine("Snippet:", display.ConvertHtmlToText(result.Contents), tm.RED, tm.GREEN, config.ShowContents)
-
-		if config.ShowContents && len(result.Extras) > 0 {
+		if config.ShowOthers && len(result.Extras) > 0 {
 			for _, extra := range result.ExtrasOrder {
 				display.PutLine(extra, display.ConvertHtmlToText(result.Extras[extra]), tm.RED, tm.YELLOW, true)
 			}

@@ -57,7 +57,7 @@ func searchStackOverflow(searchTerm string, numOfResults int) []*SearchResult {
 			params.Sort("votes")
 
 			// is answered?
-			answersCount := 0
+			answersCounter := 0
 			if question.Is_answered && question.Accepted_answer_id > 0 {
 				answer, err := session.GetAnswers([]int{question.Accepted_answer_id}, params)
 				if err != nil {
@@ -68,13 +68,13 @@ func searchStackOverflow(searchTerm string, numOfResults int) []*SearchResult {
 					sr.Extras[extra] = vote + answer.Items[0].Body
 					sr.ExtrasOrder = append(sr.ExtrasOrder, extra)
 
-					answersCount++
+					answersCounter++
 				}
 			}
 
 			answers, _ := session.AnswersForQuestions([]int{question.Question_id}, params)
 			for _, answer := range answers.Items {
-				if answersCount > MAX_ANSWERS {
+				if answersCounter > MAX_ANSWERS {
 					break
 				}
 
@@ -82,12 +82,12 @@ func searchStackOverflow(searchTerm string, numOfResults int) []*SearchResult {
 					continue
 				}
 
-				vote := "(vote:" + strconv.Itoa(answer.Score) + ") "
-				extra := "Answer " + strconv.Itoa(answersCount+1) + ":"
-				sr.Extras["Answer "+strconv.Itoa(answersCount+1)+":"] = vote + answer.Body
+				vote := "(vote:" + strconv.Itoa(answer.Score) + ")\t"
+				extra := "Answer " + strconv.Itoa(answersCounter+1) + ":"
+				sr.Extras[extra] = vote + answer.Body
 				sr.ExtrasOrder = append(sr.ExtrasOrder, extra)
 
-				answersCount++
+				answersCounter++
 			}
 		}
 

@@ -24,6 +24,7 @@ var engines = map[string]searchFn{
 	"google": searchViaGoogleApi,
 	"so":     searchStackOverflow,
 	"hn":     fetchHackerNews,
+	"ip_loc": searchIpLocation,
 }
 
 func HasEngineSupport(engine string) bool {

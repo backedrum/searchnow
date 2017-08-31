@@ -28,17 +28,21 @@
   Command line value: so.
 - Hacker News. Allows fetching of the stories from [Hacker News](news.ycombinator.com) via [Hacker News Api](https://github.com/HackerNews/API).
   Supported terms: *newstories, topstories, beststories, askstories, jobstories*.
-  Command line value: hn.    
-- Other engines to be added soon.
+  Command line value: hn.
+- ipvigilante.com. Retrieves location by IP via [ipvigilante.com Api](www.ipvigilante.com).
+  Command line value: ip_loc.     
+- Other engines (might be added soon).
 
 ### Command line arguments:
 - *search_term* (required)     Term to search for search engines or action/expression for other engines.
 - *search_engine* (optional)   Search engine, "google" is default one.
 - *max_resuts* (optional)      Limit a number of results. Default value is 5.  
 
-### Sample:
-> searchnow "go: unknown subcommand" google 10
-> searchnow "factorial" so 9
+### Samples:
+> searchnow "go: unknown subcommand" google 10  
+> searchnow "factorial" so 9  
+> searchnow "newstories" hn  
+> searchnow "8.8.8.8" ip_loc  
 
 ### License:
 > Apache 2.0
