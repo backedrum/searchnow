@@ -40,7 +40,7 @@ func init() {
 	file, err := os.Open(".tokens")
 	if err != nil {
 		fmt.Printf("Cannot read .tokens file: %v\n", err)
-		os.Exit(1)
+		return
 	}
 	defer file.Close()
 

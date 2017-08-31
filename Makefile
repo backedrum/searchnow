@@ -4,7 +4,12 @@ BINARY=searchnow
 
 $(BINARY):
 	govendor sync
+	go test -v ./handlers
 	go build -o ${BINARY} *.go
+
+format:
+	go fmt $$(go list ./... | grep -v /vendor/) ; \
+	cd - >/dev/null
 
 clean:
 	if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
