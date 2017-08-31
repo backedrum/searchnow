@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	"github.com/laktek/Stack-on-Go/stackongo"
+	"net/url"
 	"strconv"
 )
 
@@ -16,10 +17,23 @@ func searchStackOverflow(searchTerm string, numOfResults int) []*SearchResult {
 	params.Add("filter", "withbody")
 
 	session := stackongo.NewSession("stackoverflow")
-	questions, err := session.Search(searchTerm, params)
+
+	escapedSearchTerm := url.QueryEscape(searchTerm)
+
+	questions, err := session.Search(escapedSearchTerm, params)
 	if err != nil {
 		fmt.Printf("Error while retrieving questions:%s\n", err.Error())
 		return result
+	}
+
+	// try similar questions
+	if len(questions.Items) == 0 {
+		questions, err = session.Search(escapedSearchTerm, params)
+
+		if err != nil {
+			fmt.Printf("Error while retrieving questions:%s\n", err.Error())
+			return result
+		}
 	}
 
 	for i, question := range questions.Items {
