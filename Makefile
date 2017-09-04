@@ -4,6 +4,7 @@ BINARY=searchnow
 
 $(BINARY):
 	govendor sync
+	go test -v ./display
 	go test -v ./handlers
 	go build -o ${BINARY} *.go
 
@@ -13,3 +14,7 @@ format:
 
 clean:
 	if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
+
+$(BINARY)_no_tests:
+	govendor sync
+	go build -o ${BINARY} *.go
