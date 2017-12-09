@@ -16,5 +16,5 @@ clean:
 	if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
 
 $(BINARY)_no_tests:
-	#govendor sync
+	govendor sync
 	go build -o ${BINARY} *.go
