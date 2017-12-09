@@ -73,6 +73,11 @@ func main() {
 
 	results := handlers.Search(engine, searchTerm, numOfResults)
 
+	if len(results) == 0 {
+		fmt.Println("Sorry, but there are no results found for your search.")
+		os.Exit(1)
+	}
+
 	titles := []string{}
 	for _, result := range results {
 		titles = append(titles, result.Title)
@@ -81,6 +86,10 @@ func main() {
 	console := promptui.Select{
 		Label: "Select result",
 		Items: titles,
+		Templates: &promptui.SelectTemplates{
+			Active:   "{{. | green | bold}}",
+			Inactive: "{{. | yellow}}",
+		},
 	}
 
 	index, _, err := console.Run()
