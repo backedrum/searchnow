@@ -21,6 +21,7 @@ import (
 	"github.com/backedrum/searchnow/display"
 	"github.com/backedrum/searchnow/handlers"
 	tm "github.com/buger/goterm"
+	"github.com/manifoldco/promptui"
 	"io/ioutil"
 	"os"
 	"strconv"
@@ -72,23 +73,42 @@ func main() {
 
 	results := handlers.Search(engine, searchTerm, numOfResults)
 
-	for _, result := range results {
-		for i := 0; i < tm.Width(); i++ {
-			fmt.Print(tm.Color("_", tm.CYAN))
-		}
-		fmt.Print("\n")
-
-		display.PutLine("URL:", result.Url, tm.RED, tm.BLUE, config.ShowURL && result.Url != "")
-		display.PutLine("Title:", result.Title, tm.RED, -1, config.ShowTitle && result.Title != "")
-		display.PutLine("Snippet:", display.ConvertHtmlToText(result.Contents), tm.RED, tm.GREEN, config.ShowContents && result.Contents != "")
-
-		if config.ShowOthers && len(result.Extras) > 0 {
-			for _, extra := range result.ExtrasOrder {
-				display.PutLine(extra, display.ConvertHtmlToText(result.Extras[extra]), tm.RED, tm.YELLOW, true)
-			}
-		}
+	if len(results) == 0 {
+		fmt.Println("Sorry, but there are no results found for your search.")
+		os.Exit(1)
 	}
 
+	titles := []string{}
+	for _, result := range results {
+		titles = append(titles, result.Title)
+	}
+
+	console := promptui.Select{
+		Label: "Select result",
+		Items: titles,
+		Templates: &promptui.SelectTemplates{
+			Active:   "{{. | green | bold}}",
+			Inactive: "{{. | yellow}}",
+		},
+	}
+
+	index, _, err := console.Run()
+	if err != nil {
+		fmt.Printf("Cannot display results. Error:%s", err.Error())
+		os.Exit(1)
+	}
+
+	result := results[index]
+
+	display.PutLine("URL:", result.Url, tm.RED, tm.BLUE, config.ShowURL && result.Url != "")
+	display.PutLine("Title:", result.Title, tm.RED, -1, config.ShowTitle && result.Title != "")
+	display.PutLine("Snippet:", display.ConvertHtmlToText(result.Contents), tm.RED, tm.GREEN, config.ShowContents && result.Contents != "")
+
+	if config.ShowOthers && len(result.Extras) > 0 {
+		for _, extra := range result.ExtrasOrder {
+			display.PutLine(extra, display.ConvertHtmlToText(result.Extras[extra]), tm.RED, tm.YELLOW, true)
+		}
+	}
 	tm.Flush()
 
 	return
