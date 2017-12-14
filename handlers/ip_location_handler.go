@@ -58,9 +58,5 @@ func searchIpLocation(ip string, _ int) []*SearchResult {
 
 func isValidIp4(ip string) bool {
 	ip4 := net.ParseIP(ip)
-	if ip4.To4() == nil {
-		return false
-	}
-
-	return true
+	return ip4.To4() != nil
 }

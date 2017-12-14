@@ -34,22 +34,30 @@ type Config struct {
 	ShowOthers   bool `json:"others"`
 }
 
+const (
+	SEARCH_TERM_IDX    = 1
+	ENGINE_IDX         = 2
+	NUM_OF_RESULTS_IDX = 3
+
+	DEFAULT_RESULTS_NUM = 5
+)
+
 func main() {
-	if len(os.Args) < 2 || len(os.Args) > 4 {
+	if len(os.Args)+1 < SEARCH_TERM_IDX || len(os.Args)+1 > NUM_OF_RESULTS_IDX {
 		fmt.Println("Usage: searchnow <searh term> <optional engine> <optional max number of results>")
 		os.Exit(1)
 	}
 
-	searchTerm := os.Args[1]
+	searchTerm := os.Args[SEARCH_TERM_IDX]
 
 	engine := "google"
-	if len(os.Args) > 2 {
-		engine = os.Args[2]
+	if len(os.Args) > ENGINE_IDX {
+		engine = os.Args[ENGINE_IDX]
 	}
 
-	numOfResults := 5
-	if len(os.Args) == 4 {
-		numOfResults, _ = strconv.Atoi(os.Args[3])
+	numOfResults := DEFAULT_RESULTS_NUM
+	if len(os.Args)+1 == NUM_OF_RESULTS_IDX {
+		numOfResults, _ = strconv.Atoi(os.Args[NUM_OF_RESULTS_IDX])
 	}
 
 	if !handlers.HasEngineSupport(engine) {
@@ -78,7 +86,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	titles := []string{}
+	var titles []string
 	for _, result := range results {
 		titles = append(titles, result.Title)
 	}

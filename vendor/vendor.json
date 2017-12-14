@@ -71,22 +71,10 @@
 			"revisionTime": "2017-05-04T06:37:40Z"
 		},
 		{
-			"checksumSHA1": "G3axtfR9K9hin2u1KXQoIGl7ksY=",
+			"checksumSHA1": "SFlrmNaf+HwJP0dV6tKPtMoBLQ8=",
 			"path": "github.com/manifoldco/promptui",
-			"revision": "3d6c0f55b5882c5aa3a2b478e02c45f842cd8722",
-			"revisionTime": "2017-12-05T13:36:01Z"
-		},
-		{
-			"checksumSHA1": "fVHI8To5gIfTnZhRY25UEg+SsqE=",
-			"path": "github.com/manifoldco/promptui/list",
-			"revision": "3d6c0f55b5882c5aa3a2b478e02c45f842cd8722",
-			"revisionTime": "2017-12-05T13:36:01Z"
-		},
-		{
-			"checksumSHA1": "NWkKtjbU06ollFPEggEkvdUOOoc=",
-			"path": "github.com/manifoldco/promptui/screenbuf",
-			"revision": "3d6c0f55b5882c5aa3a2b478e02c45f842cd8722",
-			"revisionTime": "2017-12-05T13:36:01Z"
+			"revision": "abacd3cb3a43b70945b80f52db03544f8b67d267",
+			"revisionTime": "2017-12-12T20:54:06Z"
 		},
 		{
 			"checksumSHA1": "6WOrEA4SH+M4UPESadwZ7J4ytnE=",
@@ -240,10 +228,6 @@
 		},
 		{
 			"path": "https://github.com/hokaccha/go-prettyjson",
-			"revision": ""
-		},
-		{
-			"path": "https://github.com/manifoldco/promptui",
 			"revision": ""
 		}
 	],
