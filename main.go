@@ -43,7 +43,7 @@ const (
 )
 
 func main() {
-	if len(os.Args)+1 < SEARCH_TERM_IDX || len(os.Args)+1 > NUM_OF_RESULTS_IDX {
+	if len(os.Args)-1 < SEARCH_TERM_IDX || len(os.Args)-1 > NUM_OF_RESULTS_IDX {
 		fmt.Println("Usage: searchnow <searh term> <optional engine> <optional max number of results>")
 		os.Exit(1)
 	}
@@ -51,14 +51,16 @@ func main() {
 	searchTerm := os.Args[SEARCH_TERM_IDX]
 
 	engine := "google"
-	if len(os.Args) > ENGINE_IDX {
+	if len(os.Args)-1 > SEARCH_TERM_IDX {
 		engine = os.Args[ENGINE_IDX]
 	}
 
 	numOfResults := DEFAULT_RESULTS_NUM
-	if len(os.Args)+1 == NUM_OF_RESULTS_IDX {
+	if len(os.Args)-1 == NUM_OF_RESULTS_IDX {
 		numOfResults, _ = strconv.Atoi(os.Args[NUM_OF_RESULTS_IDX])
 	}
+
+	engine = handlers.ResolveTargetEngineName(engine)
 
 	if !handlers.HasEngineSupport(engine) {
 		fmt.Printf("Sorry, but engine %s is not supported.\n", engine)
