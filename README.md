@@ -1,7 +1,7 @@
 ## searchnow command line search tool
 *Searchnow* allows you to perform a quick web search or get instant info from various APIs directly from the command line. 
 
-<img width="1039" alt="screen shot 2017-09-21 at 11 27 12 pm" src="https://user-images.githubusercontent.com/3159236/30719697-c2673ec2-9f24-11e7-9198-582e7d72b48f.png">
+![Screenshot](demo.gif)
 
 ### Make
 > make
