@@ -42,6 +42,23 @@ var engines = map[string]searchFn{
 	"ip_loc": searchIpLocation,
 }
 
+var enginesAliases = map[string]string{
+	"g":              "google",
+	"stack":          "so",
+	"stack-overflow": "so",
+	"hacker":         "hn",
+	"ip":             "ip_loc",
+}
+
+// ResolveTargetEngineName Identify target engine by the given input.
+// Input can be either exact engine name or alias
+func ResolveTargetEngineName(input string) string {
+	if val, exists := enginesAliases[input]; exists {
+		return val
+	}
+	return input
+}
+
 func HasEngineSupport(engine string) bool {
 	return engines[engine] != nil
 }
